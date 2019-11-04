@@ -1,13 +1,13 @@
-variable "region_numbers" {
+region_numbers {
   default = {
-    us-east-1 = 1
+    eu-west-1 = 1
     us-west-1 = 2
     us-west-2 = 3
     eu-west-1 = 4
   }
 }
 
-variable "az_numbers" {
+az_numbers {
   default = {
     a = 1
     b = 2

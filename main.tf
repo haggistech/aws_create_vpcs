@@ -4,6 +4,13 @@ provider "aws" {
     region     = "eu-west-1"
 }
 
+resource "aws_vpc" "TerraForm_VPC01" {
+  cidr_block       = "10.0.0.0/16"
+  tags = {
+    Name = "main"
+  }
+}
+
 resource "aws_security_group" "mik_terra" {
   name        = "mik_terra"
   description = "Allow SSH in from devlan"

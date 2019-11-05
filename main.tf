@@ -17,7 +17,7 @@ resource "aws_subnet" "TerraForm_VPC01_Private_Subnet_1a" {
   availability_zone = "eu-west-1a"
 
   tags = {
-    Name = "Main"
+    Name = "TerraForm_VPC01_Private_Subnet_1a"
   }
 }
 

@@ -11,6 +11,16 @@ resource "aws_vpc" "TerraForm_VPC01" {
   }
 }
 
+resource "aws_subnet" "TerraForm_VPC01_Private_Subnet_1a" {
+  vpc_id     = "${aws_vpc.TerraForm_VPC01.id}"
+  cidr_block = "10.0.1.0/24"
+  availability_zone = "eu-west-1a"
+
+  tags = {
+    Name = "Main"
+  }
+}
+
 resource "aws_security_group" "mik_terra" {
   name        = "mik_terra"
   description = "Allow SSH in from devlan"
@@ -70,6 +80,7 @@ resource "aws_instance" "terraform1" {
   ami           = "ami-bb9a6bc2"
   instance_type = "t2.micro"
   key_name = "mikDev"
+  subnet_id   = "${aws_subnet.TerraForm_VPC01_Private_Subnet_1a.id}"
   security_groups = [ "mik_terra" ]
   ebs_block_device {
     device_name = "/dev/sdb"

@@ -7,13 +7,14 @@ provider "aws" {
 resource "aws_vpc" "TerraForm_VPC01" {
   cidr_block       = "10.0.0.0/16"
   tags = {
-    Name = "main"
+    Name = "TerraForm_VPC01"
   }
 }
 
 resource "aws_security_group" "mik_terra" {
   name        = "mik_terra"
   description = "Allow SSH in from devlan"
+  vpc_id      = "${aws_vpc.TerraForm_VPC01.id}"
 
   ingress {
     from_port   = 22

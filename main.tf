@@ -89,7 +89,7 @@ resource "aws_instance" "terraform1" {
     delete_on_termination = true
   }
   depends_on = [
-    aws_security_group.mik_terra,
+    aws_security_group.mik_terra
   ]
 }
 

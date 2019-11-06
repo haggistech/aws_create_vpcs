@@ -88,8 +88,6 @@ resource "aws_instance" "terraform1" {
     volume_type = "gp2"
     delete_on_termination = true
   }
-  depends_on = [
-    aws_security_group.mik_terra
-  ]
+    depends_on = [aws_security_group.mik_terra]
 }
 

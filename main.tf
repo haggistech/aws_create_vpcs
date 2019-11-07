@@ -160,6 +160,21 @@ resource "aws_lb" "Webserver_NLB" {
 }
 
 
+resource "aws_lb_listener" "http_listener" {
+  load_balancer_arn = "${aws_lb.Webserver_NLB.arn}"
+  port              = "80"
+  protocol          = "HTTP"
+  #ssl_policy        = "ELBSecurityPolicy-2016-08"
+  #certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = "${aws_lb_target_group.Webserver_TG.arn}"
+  }
+}
+
+
+
 resource "aws_instance" "Webserver_1" {
   ami           = "ami-bb9a6bc2"
   instance_type = "t2.micro"

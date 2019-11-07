@@ -274,6 +274,10 @@ resource "aws_lb_target_group" "Webserver_TG" {
   name     = "Webserver-TG"
   port     = 80
   protocol = "HTTP"
+  interval = 5
+  timeout = 2
+  healthy_threshold = 2
+  unhealthy_threshold = 2
   vpc_id   = "${aws_vpc.TerraForm_VPC01.id}"
 }
 

@@ -108,6 +108,11 @@ resource "aws_route_table" "public_rt" {
   }
 }
 
+resource "aws_route_table_association" "pub_subs" {
+  subnet_id      = ["${aws_subnet.TerraForm_VPC01_Public_Subnet_1a.id}", "${aws_subnet.TerraForm_VPC01_Public_Subnet_1b.id}", "${aws_subnet.TerraForm_VPC01_Public_Subnet_1c.id}"]
+  route_table_id = "${aws_route_table.public_rt.id}"
+}
+
 
 resource "aws_security_group" "mik_terra" {
   name        = "mik_terra"

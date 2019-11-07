@@ -239,4 +239,5 @@ resource "aws_instance" "Webserver_2" {
     volume_type = "gp2"
     delete_on_termination = true
   }
+  user_data = ${file("webserver_userdata.tf")}
 }

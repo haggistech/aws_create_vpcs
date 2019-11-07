@@ -24,6 +24,14 @@ resource "aws_eip" "nat" {
   vpc      = true
 }
 
+resource "aws_route_table" "r" {
+  vpc_id = "${aws_vpc.default.id}"
+
+  route {
+    cidr_block = "10.0.0.0/16"
+    gateway_id = "${aws_internet_gateway.gw.id}"
+  }
+
 
 resource "aws_nat_gateway" "gw" {
   allocation_id = "${aws_eip.nat.id}"

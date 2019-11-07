@@ -11,6 +11,14 @@ resource "aws_vpc" "TerraForm_VPC01" {
   }
 }
 
+resource "aws_internet_gateway" "gw" {
+  vpc_id = "${aws_vpc.TerraForm_VPC01.id}"
+
+  tags = {
+    Name = "Internet Gateway"
+  }
+}
+
 resource "aws_subnet" "TerraForm_VPC01_Private_Subnet_1a" {
   vpc_id     = "${aws_vpc.TerraForm_VPC01.id}"
   cidr_block = "10.0.1.0/24"
@@ -279,6 +287,7 @@ resource "aws_instance" "Webserver_2" {
 }
 
 resource "aws_instance" "JumpBox" {
+  depends_on = ["aws_internet_gateway.gw"]
   ami           = "${var.ec2_ami}"
   instance_type = "t2.micro"
   key_name = "mikDev"

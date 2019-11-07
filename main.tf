@@ -227,7 +227,7 @@ resource "aws_lb_listener" "http_listener" {
 
 
 resource "aws_instance" "Webserver_1" {
-  ami           = "ami-bb9a6bc2"
+  ami           = "${var.ec2_ami}"
   instance_type = "t2.micro"
   key_name = "mikDev"
   subnet_id   = "${aws_subnet.TerraForm_VPC01_Private_Subnet_1a.id}"
@@ -242,7 +242,7 @@ resource "aws_instance" "Webserver_1" {
 }
 
 resource "aws_instance" "Webserver_2" {
-  ami           = "ami-bb9a6bc2"
+  ami           = "${var.ec2_ami}"
   instance_type = "t2.micro"
   key_name = "mikDev"
   subnet_id   = "${aws_subnet.TerraForm_VPC01_Private_Subnet_1b.id}"

@@ -297,7 +297,7 @@ resource "aws_lb_target_group_attachment" "Webserver2_TG_attach" {
 
 resource "aws_lb" "Webserver_ALB" {
   name               = "Webserver-ALB-01"
-  internal           = true
+  internal           = false
   load_balancer_type = "application"
   subnets            = ["${aws_subnet.TerraForm_VPC01_Private_Subnet_1a.id}", "${aws_subnet.TerraForm_VPC01_Private_Subnet_1b.id}", "${aws_subnet.TerraForm_VPC01_Private_Subnet_1c.id}"]
   security_groups    = ["${aws_security_group.Webserver_LB_SG.id}"]

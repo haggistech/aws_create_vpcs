@@ -126,7 +126,22 @@ resource "aws_security_group" "mik_terra" {
   }
 }
 
-resource "aws_instance" "terraform1" {
+
+resource "aws_lb" "Webserver_NLB" {
+  name               = "Webserver-NLB-01"
+  internal           = true
+  load_balancer_type = "network"
+  subnets            = ["${aws_subnet.TerraForm_VPC01_Public_Subnet_*.id}"]
+
+  enable_deletion_protection = false
+
+  tags = {
+    Environment = "Terraform"
+  }
+}
+
+
+resource "aws_instance" "Webserver_1" {
   ami           = "ami-bb9a6bc2"
   instance_type = "t2.micro"
   key_name = "mikDev"
@@ -140,3 +155,16 @@ resource "aws_instance" "terraform1" {
   }
 }
 
+resource "aws_instance" "WebServer_2" {
+  ami           = "ami-bb9a6bc2"
+  instance_type = "t2.micro"
+  key_name = "mikDev"
+  subnet_id   = "${aws_subnet.TerraForm_VPC01_Private_Subnet_1b.id}"
+  vpc_security_group_ids = [ "${aws_security_group.mik_terra.id}" ]
+  ebs_block_device {
+    device_name = "/dev/sdb"
+    volume_size = 5
+    volume_type = "gp2"
+    delete_on_termination = true
+  }
+}

@@ -146,11 +146,11 @@ resource "aws_lb_target_group_attachment" "Webserver2_TG_attach" {
   port             = 80
 }
 
-resource "aws_lb" "Webserver_NLB" {
-  name               = "Webserver-NLB-01"
+resource "aws_lb" "Webserver_ALB" {
+  name               = "Webserver-ALB-01"
   internal           = true
   load_balancer_type = "application"
-  subnets            = ["${aws_subnet.TerraForm_VPC01_Public_Subnet_1a.id}", "${aws_subnet.TerraForm_VPC01_Public_Subnet_1b.id}", "${aws_subnet.TerraForm_VPC01_Public_Subnet_1c.id}"]
+  subnets            = ["${aws_subnet.TerraForm_VPC01_Private_Subnet_1a.id}", "${aws_subnet.TerraForm_VPC01_Private_Subnet_1b.id}", "${aws_subnet.TerraForm_VPC01_Private_Subnet_1c.id}"]
 
   enable_deletion_protection = false
 
@@ -163,7 +163,7 @@ resource "aws_lb" "Webserver_NLB" {
 resource "aws_lb_listener" "http_listener" {
   load_balancer_arn = "${aws_lb.Webserver_NLB.arn}"
   port              = "80"
-  protocol          = "TCP"
+  protocol          = "HTTP"
   #ssl_policy        = "ELBSecurityPolicy-2016-08"
   #certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
 

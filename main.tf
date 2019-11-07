@@ -299,7 +299,7 @@ resource "aws_lb" "Webserver_ALB" {
   name               = "Webserver-ALB-01"
   internal           = false
   load_balancer_type = "application"
-  subnets            = ["${aws_subnet.TerraForm_VPC01_Private_Subnet_1a.id}", "${aws_subnet.TerraForm_VPC01_Private_Subnet_1b.id}", "${aws_subnet.TerraForm_VPC01_Private_Subnet_1c.id}"]
+  subnets            = ["${aws_subnet.TerraForm_VPC01_Public_Subnet_1a.id}", "${aws_subnet.TerraForm_VPC01_Public_Subnet_1b.id}", "${aws_subnet.TerraForm_VPC01_Public_Subnet_1c.id}"]
   security_groups    = ["${aws_security_group.Webserver_LB_SG.id}"]
   enable_deletion_protection = false
 

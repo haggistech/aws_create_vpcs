@@ -327,7 +327,7 @@ resource "aws_lb_listener" "http_listener" {
 resource "aws_instance" "Webserver_1" {
   ami           = "${var.ec2_ami}"
   instance_type = "t2.micro"
-  key_name = "mikDev"
+  key_name = "${var.ec2_key}"
   subnet_id   = "${aws_subnet.TerraForm_VPC01_Private_Subnet_1a.id}"
   vpc_security_group_ids = [ "${aws_security_group.Webserver_SG.id}" ]
   user_data = "${file("webserver_userdata.txt")}"
@@ -346,7 +346,7 @@ resource "aws_instance" "Webserver_1" {
 resource "aws_instance" "Webserver_2" {
   ami           = "${var.ec2_ami}"
   instance_type = "t2.micro"
-  key_name = "mikDev"
+  key_name = "${var.ec2_key}"
   subnet_id   = "${aws_subnet.TerraForm_VPC01_Private_Subnet_1b.id}"
   vpc_security_group_ids = [ "${aws_security_group.Webserver_SG.id}" ]
   user_data = "${file("webserver_userdata.txt")}"
@@ -366,7 +366,7 @@ resource "aws_instance" "JumpBox" {
   depends_on = ["aws_internet_gateway.gw"]
   ami           = "${var.ec2_ami}"
   instance_type = "t2.micro"
-  key_name = "mikDev"
+  key_name = "${var.ec2_key}"
   associate_public_ip_address = true
   subnet_id   = "${aws_subnet.TerraForm_VPC01_Public_Subnet_1b.id}"
   vpc_security_group_ids = [ "${aws_security_group.JumpBox_SG.id}" ]

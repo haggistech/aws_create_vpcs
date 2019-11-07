@@ -138,6 +138,19 @@ resource "aws_security_group" "Webserver_SG" {
     protocol    = "TCP"
     security_groups = ["${aws_security_group.Webserver_LB_SG.id}"]
   }
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "TCP"
+    cidr_blocks = ["86.129.225.16/32"]
+  }
+
+
+
+  
+
+
+
   egress {
     from_port       = 0
     to_port         = 0
@@ -219,6 +232,7 @@ resource "aws_instance" "Webserver_1" {
   key_name = "mikDev"
   subnet_id   = "${aws_subnet.TerraForm_VPC01_Private_Subnet_1a.id}"
   vpc_security_group_ids = [ "${aws_security_group.Webserver_SG.id}" ]
+  user_data = "${file("webserver_userdata.txt")}"
   ebs_block_device {
     device_name = "/dev/sdb"
     volume_size = 5

@@ -127,6 +127,44 @@ resource "aws_security_group" "mik_terra" {
 }
 
 
+resource "aws_security_group" "Webserver_SG" {
+  name        = "Webserver_SG"
+  description = "Allow Port 80 from Webserver_LB"
+  vpc_id      = "${aws_vpc.TerraForm_VPC01.id}"
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "TCP"
+    source_security_group_id = "${aws_security_group.Webserver_LB_SG.id}"
+  }
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "Webserver_LB_SG" {
+  name        = "Webserver_LB_SG"
+  description = "Allow Port 80 from Public"
+  vpc_id      = "${aws_vpc.TerraForm_VPC01.id}"
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "TCP"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_lb_target_group" "Webserver_TG" {
   name     = "Webserver-TG"
   port     = 80

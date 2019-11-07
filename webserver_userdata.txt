@@ -1,4 +1,4 @@
 yum update -y
-yum install -y httpd24
+yum install -y httpd
 service httpd start
 chkconfig httpd on

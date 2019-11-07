@@ -127,6 +127,25 @@ resource "aws_security_group" "mik_terra" {
 }
 
 
+resource "aws_lb_target_group" "Webserver_TG" {
+  name     = "Webserver-TG"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = "${aws_vpc.TerraForm_VPC01.id}"
+}
+
+resource "aws_lb_target_group_attachment" "Webserver_TG_attach" {
+  target_group_arn = "${aws_lb_target_group.Webserver_TG.arn}"
+  target_id        = "${aws_instance.Webserver_1.id}"
+  port             = 80
+}
+
+resource "aws_lb_target_group_attachment" "Webserver_TG_attach" {
+  target_group_arn = "${aws_lb_target_group.Webserver_TG.arn}"
+  target_id        = "${aws_instance.Webserver_2.id}"
+  port             = 80
+}
+
 resource "aws_lb" "Webserver_NLB" {
   name               = "Webserver-NLB-01"
   internal           = true

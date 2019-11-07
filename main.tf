@@ -233,11 +233,11 @@ resource "aws_instance" "Webserver_2" {
   key_name = "mikDev"
   subnet_id   = "${aws_subnet.TerraForm_VPC01_Private_Subnet_1b.id}"
   vpc_security_group_ids = [ "${aws_security_group.Webserver_SG.id}" ]
+  user_data = ${file("webserver_userdate.tf")}
   ebs_block_device {
     device_name = "/dev/sdb"
     volume_size = 5
     volume_type = "gp2"
     delete_on_termination = true
   }
-  user_data = ${file("webserver_userdata.tf")}
 }

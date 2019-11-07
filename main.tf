@@ -24,12 +24,15 @@ resource "aws_eip" "nat" {
   vpc      = true
 }
 
-resource "aws_route_table" "r" {
+resource "aws_route_table" "public_rt" {
   vpc_id = "${aws_vpc.TerraForm_VPC01.id}"
 
   route {
-    cidr_block = "10.0.0.0/16"
-    gateway_id = "${aws_nat_gateway.gw.id}"
+    cidr_block = "10.0.1.0/24"
+    gateway_id = "${aws_internet_gateway.gw.id}"
+  }
+  tags = {
+    Name = "Public Route Table"
   }
 }
 

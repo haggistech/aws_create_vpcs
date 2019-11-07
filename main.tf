@@ -174,7 +174,7 @@ resource "aws_instance" "Webserver_1" {
   }
 }
 
-resource "aws_instance" "WebServer_2" {
+resource "aws_instance" "Webserver_2" {
   ami           = "ami-bb9a6bc2"
   instance_type = "t2.micro"
   key_name = "mikDev"

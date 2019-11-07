@@ -161,7 +161,7 @@ resource "aws_lb" "Webserver_ALB" {
 
 
 resource "aws_lb_listener" "http_listener" {
-  load_balancer_arn = "${aws_lb.Webserver_NLB.arn}"
+  load_balancer_arn = "${aws_lb.Webserver_ALB.arn}"
   port              = "80"
   protocol          = "HTTP"
   #ssl_policy        = "ELBSecurityPolicy-2016-08"

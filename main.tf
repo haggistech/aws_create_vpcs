@@ -41,6 +41,36 @@ resource "aws_subnet" "TerraForm_VPC01_Private_Subnet_1c" {
   }
 }
 
+resource "aws_subnet" "TerraForm_VPC01_Public_Subnet_1a" {
+  vpc_id     = "${aws_vpc.TerraForm_VPC01.id}"
+  cidr_block = "10.0.4.0/24"
+  availability_zone = "eu-west-1a"
+
+  tags = {
+    Name = "TerraForm_VPC01_Public_Subnet_1a"
+  }
+}
+
+resource "aws_subnet" "TerraForm_VPC01_Public_Subnet_1b" {
+  vpc_id     = "${aws_vpc.TerraForm_VPC01.id}"
+  cidr_block = "10.0.5.0/24"
+  availability_zone = "eu-west-1b"
+
+  tags = {
+    Name = "TerraForm_VPC01_Public_Subnet_1b"
+  }
+}
+
+resource "aws_subnet" "TerraForm_VPC01_Public_Subnet_1c" {
+  vpc_id     = "${aws_vpc.TerraForm_VPC01.id}"
+  cidr_block = "10.0.6.0/24"
+  availability_zone = "eu-west-1c"
+
+  tags = {
+    Name = "TerraForm_VPC01_Public_Subnet_1c"
+  }
+}
+
 resource "aws_security_group" "mik_terra" {
   name        = "mik_terra"
   description = "Allow SSH in from devlan"

@@ -131,7 +131,7 @@ resource "aws_lb" "Webserver_NLB" {
   name               = "Webserver-NLB-01"
   internal           = true
   load_balancer_type = "network"
-  subnets            = ["${aws_subnet.TerraForm_VPC01_Public_Subnet_*.id}"]
+  subnets            = ["${aws_subnet.TerraForm_VPC01_Public_Subnet_1a.id}", "${aws_subnet.TerraForm_VPC01_Public_Subnet_1b.id}", "${aws_subnet.TerraForm_VPC01_Public_Subnet_1c.id}"]
 
   enable_deletion_protection = false
 

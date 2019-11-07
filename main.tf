@@ -19,6 +19,21 @@ resource "aws_internet_gateway" "gw" {
   }
 }
 
+
+resource "aws_eip" "nat" {
+  vpc      = true
+}
+
+
+resource "aws_nat_gateway" "gw" {
+  allocation_id = "${aws_eip.nat.id}"
+  subnet_id     = "${aws_subnet.TerraForm_VPC01_Public_Subnet_1a.id}", "${aws_subnet.TerraForm_VPC01_Public_Subnet_1b.id}", "${aws_subnet.TerraForm_VPC01_Public_Subnet_1c.id}"
+  depends_on = ["aws_internet_gateway.gw"]
+  tags = {
+    Name = "gw NAT"
+  }
+}
+
 resource "aws_subnet" "TerraForm_VPC01_Private_Subnet_1a" {
   vpc_id     = "${aws_vpc.TerraForm_VPC01.id}"
   cidr_block = "10.0.1.0/24"

@@ -189,7 +189,7 @@ resource "aws_lb" "Webserver_ALB" {
   internal           = true
   load_balancer_type = "application"
   subnets            = ["${aws_subnet.TerraForm_VPC01_Private_Subnet_1a.id}", "${aws_subnet.TerraForm_VPC01_Private_Subnet_1b.id}", "${aws_subnet.TerraForm_VPC01_Private_Subnet_1c.id}"]
-
+  security_groups    = ["${aws_security_group.Webserver_LB_SG.id}"]
   enable_deletion_protection = false
 
   tags = {
@@ -218,7 +218,7 @@ resource "aws_instance" "Webserver_1" {
   instance_type = "t2.micro"
   key_name = "mikDev"
   subnet_id   = "${aws_subnet.TerraForm_VPC01_Private_Subnet_1a.id}"
-  vpc_security_group_ids = [ "${aws_security_group.mik_terra.id}" ]
+  vpc_security_group_ids = [ "${aws_security_group.Webserver_SG.id}" ]
   ebs_block_device {
     device_name = "/dev/sdb"
     volume_size = 5
@@ -232,7 +232,7 @@ resource "aws_instance" "Webserver_2" {
   instance_type = "t2.micro"
   key_name = "mikDev"
   subnet_id   = "${aws_subnet.TerraForm_VPC01_Private_Subnet_1b.id}"
-  vpc_security_group_ids = [ "${aws_security_group.mik_terra.id}" ]
+  vpc_security_group_ids = [ "${aws_security_group.Webserver_SG.id}" ]
   ebs_block_device {
     device_name = "/dev/sdb"
     volume_size = 5

@@ -25,7 +25,7 @@ resource "aws_eip" "nat" {
 }
 
 resource "aws_route_table" "r" {
-  vpc_id = "${aws_vpc.default.id}"
+  vpc_id = "${aws_vpc.TerraForm_VPC01.id}"
 
   route {
     cidr_block = "10.0.0.0/16"

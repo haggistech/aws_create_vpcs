@@ -126,6 +126,23 @@ resource "aws_security_group" "mik_terra" {
   }
 }
 
+resource "aws_security_group" "JumpBox_SG" {
+  name        = "JumpBox_SG"
+  description = "Allow Port 22 from Mik"
+  vpc_id      = "${aws_vpc.TerraForm_VPC01.id}"
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "TCP"
+    cidr_blocks = ["86.129.225.16/32"]
+  }
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    cidr_blocks     = ["0.0.0.0/0"]
+  }
+}
 
 resource "aws_security_group" "Webserver_SG" {
   name        = "Webserver_SG"
@@ -142,15 +159,14 @@ resource "aws_security_group" "Webserver_SG" {
     from_port   = 22
     to_port     = 22
     protocol    = "TCP"
+    security_groups = ["${aws_security_group.JumpBox_SG.id}"]
+  }
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "TCP"
     cidr_blocks = ["86.129.225.16/32"]
   }
-
-
-
-  
-
-
-
   egress {
     from_port       = 0
     to_port         = 0
@@ -248,6 +264,20 @@ resource "aws_instance" "Webserver_2" {
   subnet_id   = "${aws_subnet.TerraForm_VPC01_Private_Subnet_1b.id}"
   vpc_security_group_ids = [ "${aws_security_group.Webserver_SG.id}" ]
   user_data = "${file("webserver_userdata.txt")}"
+  ebs_block_device {
+    device_name = "/dev/sdb"
+    volume_size = 5
+    volume_type = "gp2"
+    delete_on_termination = true
+  }
+}
+
+resource "aws_instance" "JumpBox" {
+  ami           = "${var.ec2_ami}"
+  instance_type = "t2.micro"
+  key_name = "mikDev"
+  subnet_id   = "${aws_subnet.TerraForm_VPC01_Public_Subnet_1b.id}"
+  vpc_security_group_ids = [ "${aws_security_group.JumpBox_SG.id}" ]
   ebs_block_device {
     device_name = "/dev/sdb"
     volume_size = 5

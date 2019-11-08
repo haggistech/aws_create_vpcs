@@ -389,7 +389,7 @@ resource "aws_route53_zone" "mikmclean" {
 resource "aws_route53_record" "mikmclean" {
   zone_id = "${aws_route53_zone.mikmclean.zone_id}"
   name    = "www.mikmclean.co.uk"
-  type    = "A"
+  type    = "CNAME"
   ttl     = "60"
   records = ["${aws_lb.Webserver_ALB.dns_name}"]
 }
